@@ -57,12 +57,12 @@ class LoginController extends Controller
     {
         $auth_user = Socialite::driver('google')->user();
 
-        $user = User::firstOrCreate(
+        $user = User::updateOrCreate(
             [
                 'email' => $auth_user->email
             ],
             [
-                'refresh_token' => $auth_user->refreshToken,
+                'refresh_token' => $auth_user->token,
                 'name'  =>  $auth_user->name
             ]
         );
